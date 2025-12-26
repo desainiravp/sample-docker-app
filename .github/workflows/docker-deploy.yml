@@ -1,0 +1,43 @@
+name: Node App Docker CI/CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Docker login
+      run: |
+        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login \
+        -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+    - name: Build image
+      run: |
+        docker build -t desainiravp/node-app:latest .
+
+    - name: Push image
+      run: |
+        docker push desainiravp/node-app:latest
+
+    - name: Deploy on server
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        script: |
+          docker pull desainiravp/node-app:latest
+          docker stop node-app || true
+          docker rm node-app || true
+          docker run -d \
+            --name node-app \
+            -p 80:3000 \
+            --restart always \
+            desainiravp/node-app:latest
