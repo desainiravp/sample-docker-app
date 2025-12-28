@@ -4,7 +4,7 @@ You can place this file at the root of your repo.
 
 # 🚀 Node.js Docker App – CI/CD with GitHub Actions & EC2
 
-This project demonstrates a **simple Node.js application** containerized using Docker and deployed automatically to an **AWS EC2 instance** using **GitHub Actions CI/CD**.
+This project is for  demonstrates a **simple Node.js application** containerized using Docker and deployed automatically to an **AWS EC2 instance** using **GitHub Actions CI/CD**.
 
 ------
 
