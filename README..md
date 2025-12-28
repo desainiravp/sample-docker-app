@@ -6,7 +6,7 @@ You can place this file at the root of your repo.
 
 This project demonstrates a **simple Node.js application** containerized using Docker and deployed automatically to an **AWS EC2 instance** using **GitHub Actions CI/CD**.
 
-----
+------
 
 ## 📁 Project Structure
 
