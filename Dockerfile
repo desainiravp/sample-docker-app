@@ -1,18 +1,14 @@
-# Use the official Node.js image
-FROM node:18
+FROM node:18-bullseye
 
-# Create app directory
 WORKDIR /usr/src/app
 
-# Copy package.json and app.js
 COPY package*.json ./
 COPY app.js .
 
-# Install dependencies
-RUN npm install
+ENV npm_config_jobs=1
 
-# Expose the port the app runs on
+RUN npm ci --no-audit --no-fund
+
 EXPOSE 3000
 
-# Command to run the app
 CMD ["node", "app.js"]
